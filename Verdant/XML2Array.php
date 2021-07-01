@@ -2,6 +2,9 @@
 
 namespace Verdant;
 
+use DOMDocument;
+use DOMNode;
+
 /**
  * XML2Array: A class to convert XML to an array in PHP
  * Takes a DOMDocument object or an XML string as input.
@@ -43,7 +46,7 @@ class XML2Array
     
     /**
      * The working XML document
-     * @var \DOMDocument
+     * @var DOMDocument
      */
     protected $xml = null;
     
@@ -87,7 +90,7 @@ class XML2Array
      */
     protected function createDomDocument()
     {
-        return new \DOMDocument($this->config['version'], $this->config['encoding']);
+        return new DOMDocument($this->config['version'], $this->config['encoding']);
     }
 
     /**
@@ -118,7 +121,7 @@ class XML2Array
             if ( ! $parsed) {
                 throw new \Exception('[XML2Array] Error parsing the XML string.');
             }
-        } elseif ($inputXml instanceof \DOMDocument) {
+        } elseif ($inputXml instanceof DOMDocument) {
             $this->xml = $inputXml;
         } else {
             throw new \Exception('[XML2Array] The input XML object should be of type: DOMDocument.');
@@ -145,10 +148,10 @@ class XML2Array
 
     /**
      * Convert an XML DOMDocument (or part thereof) to an array
-     * @param \DOMNode $node A single XML DOMNode
+     * @param DOMNode $node A single XML DOMNode
      * @return array An array representation of the input node
      */
-    protected function &convert(\DOMNode $node)
+    protected function &convert(DOMNode $node)
     {
         $output = array();
 
@@ -218,9 +221,9 @@ class XML2Array
 
     /**
      * Get the namespace of the supplied node, and add it to the list of known namespaces for this document
-     * @param \DOMNode $node
+     * @param DOMNode $node
      */
-    protected function collateNamespaces(\DOMNode $node)
+    protected function collateNamespaces(DOMNode $node)
     {
         if ($this->config['useNamespaces'] && $node->namespaceURI 
             && ! array_key_exists($node->namespaceURI, $this->namespaces)) {

@@ -6,7 +6,8 @@
     "require": {
         "php": ">=5.3.2",
         "lib-libxml": "*",
-        "lib-pcre": "*"
+        "lib-pcre": "*",
+        "ext-dom": "*"
     },
     "autoload": {
         "psr-0": {
